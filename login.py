@@ -51,14 +51,19 @@ class LoginGUI(Frame):
         # Or whatever the user typed in. Unfortunately, there is no validation so anything the user
         # enters will be send directly to the database with NO validation.
 
-        print(f'Attempting to login user with username: {uname}\npassword: {password}')
+        print('Attempting to login user with username: '
 
         db = sqlite3.connect(database_filename)
         db.row_factory = sqlite3.Row  # Row factory allows us to refer to columns by name, instead of the default, by integer index
         cursor = db.cursor()
 
+
+
         # create a SQL statement using a format string to include the user's username and password 
-        sql_statement = f"SELECT name FROM users WHERE username = '{uname}' and password = '{password}'" 
+        # fix is here
+
+        sql_statement = '''SELECT name FROM users WHERE username = ? and password = ? '''
+
 
         print('About to execute the following SQL statement: \n' + sql_statement)
 
